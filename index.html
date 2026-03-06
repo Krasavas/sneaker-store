@@ -1,0 +1,2430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head >
+  <meta name="google-site-verification" content="код">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+  <title>NIKE — Just Do It</title>
+
+  <!-- Preload hero image for performance -->
+  <link rel="preload" as="image" href="https://images.pexels.com/photos/2529148/pexels-photo-2529148.jpeg?auto=compress&cs=tinysrgb&w=1400" />
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+  <!-- Font Awesome 6 Free -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <style>
+    /* === CSS VARIABLES & RESET === */
+    :root {
+      --color-black:      #111111;
+      --color-white:      #ffffff;
+      --color-gray-100:   #f5f5f5;
+      --color-gray-200:   #e5e5e5;
+      --color-gray-300:   #d5d5d5;
+      --color-gray-400:   #9e9e9e;
+      --color-gray-600:   #757575;
+      --color-accent:     #ff5e1a;
+      --color-accent-2:   #f97373;
+      --font-body:        'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif;
+      --container-max:    1440px;
+      --container-pad:    2.5rem;
+      --nav-height:       60px;
+      --radius-pill:      30px;
+      --radius-sm:        6px;
+      --radius-md:        10px;
+      --transition-fast:  0.16s ease;
+      --transition-med:   0.3s cubic-bezier(.4,0,.2,1);
+      --shadow-card:      0 2px 8px rgba(0,0,0,.07);
+      --shadow-hover:     0 8px 28px rgba(0,0,0,.13);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; font-size: 16px; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--color-white);
+      color: var(--color-black);
+      line-height: 1.5;
+      overflow-x: hidden;
+    }
+
+    a { text-decoration: none; color: inherit; }
+    ul { list-style: none; }
+    img { display: block; max-width: 100%; object-fit: cover; }
+
+    :focus-visible {
+      outline: 2px solid var(--color-accent);
+      outline-offset: 3px;
+      border-radius: var(--radius-sm);
+    }
+
+    /* === UTILITY === */
+    .container {
+      width: 100%;
+      max-width: var(--container-max);
+      margin: 0 auto;
+      padding: 0 var(--container-pad);
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px; height: 1px;
+      overflow: hidden;
+      clip: rect(0,0,0,0);
+      white-space: nowrap;
+    }
+
+    /* === BUTTONS === */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: .45rem;
+      padding: .7rem 1.6rem;
+      border-radius: var(--radius-pill);
+      font-family: var(--font-body);
+      font-size: .875rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: opacity var(--transition-fast), background var(--transition-fast), transform var(--transition-fast);
+      border: none;
+      letter-spacing: .01em;
+      white-space: nowrap;
+    }
+    .btn:hover  { opacity: .87; transform: translateY(-1px); }
+    .btn:active { transform: translateY(0); opacity: .95; }
+
+    .btn--primary { background: var(--color-accent); color: var(--color-white); }
+    .btn--dark    { background: var(--color-black); color: var(--color-white); }
+    .btn--white   { background: var(--color-white); color: var(--color-black); }
+    .btn--outline {
+      background: transparent;
+      color: var(--color-black);
+      border: 1.5px solid var(--color-black);
+    }
+    .btn--outline:hover { background: var(--color-black); color: var(--color-white); opacity: 1; }
+    .btn--ghost {
+      background: transparent;
+      color: inherit;
+      padding: 0;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      border-radius: 0;
+      font-weight: 500;
+    }
+    .btn--ghost:hover { opacity: .62; transform: none; }
+    .btn--outline-white {
+      background: transparent;
+      color: var(--color-white);
+      border: 1.5px solid rgba(255,255,255,.5);
+    }
+    .btn--outline-white:hover { background: var(--color-white); color: var(--color-black); opacity: 1; }
+
+    /* === PROMO BAR === */
+    .promo-bar {
+      background: var(--color-gray-100);
+      text-align: center;
+      padding: .5rem 1rem;
+      font-size: .775rem;
+      font-weight: 500;
+      letter-spacing: .01em;
+      border-bottom: 1px solid var(--color-gray-200);
+      position: relative;
+      z-index: 200;
+      overflow: hidden;
+    }
+    .promo-bar__marquee { overflow: hidden; white-space: nowrap; }
+    .promo-bar__text {
+      display: inline-block;
+      animation: marquee 32s linear infinite;
+    }
+    .promo-bar__text:hover { animation-play-state: paused; }
+    @keyframes marquee {
+      from { transform: translateX(100vw); }
+      to   { transform: translateX(-100%); }
+    }
+    .promo-bar a { font-weight: 700; text-decoration: underline; text-underline-offset: 2px; }
+
+    /* === HEADER / NAVIGATION === */
+    .header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--color-white);
+      border-bottom: 1px solid var(--color-gray-200);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      height: var(--nav-height);
+      gap: 1rem;
+      position: relative;
+    }
+
+    /* Logo */
+    .nav__logo {
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      line-height: 1;
+    }
+    .nav__logo svg { width: 52px; height: 20px; }
+
+    /* Desktop nav links */
+    .nav__links {
+      display: flex;
+      align-items: center;
+      gap: .05rem;
+      flex: 1;
+      justify-content: center;
+    }
+    .nav__link {
+      font-size: .875rem;
+      font-weight: 500;
+      padding: .5rem .8rem;
+      white-space: nowrap;
+      position: relative;
+      transition: color var(--transition-fast);
+      letter-spacing: -.01em;
+      cursor: pointer;
+    }
+    .nav__link--active {
+      font-weight: 700;
+    }
+    .nav__link--active::after {
+      content: '';
+      position: absolute;
+      bottom: -1px; left: .8rem; right: .8rem;
+      height: 2px;
+      background: var(--color-black);
+      border-radius: 1px;
+    }
+    .nav__link--sale { color: var(--color-accent); font-weight: 600; }
+    .nav__link:hover { color: var(--color-accent); }
+
+    /* Nav Actions */
+    .nav__actions {
+      display: flex;
+      align-items: center;
+      gap: .1rem;
+      flex-shrink: 0;
+    }
+
+    .nav__action-btn {
+      width: 2.5rem;
+      height: 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      font-size: .975rem;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--color-black);
+      transition: background var(--transition-fast);
+      position: relative;
+    }
+    .nav__action-btn:hover { background: var(--color-gray-100); }
+
+    .nav__badge {
+      position: absolute;
+      top: 3px; right: 3px;
+      width: 1rem; height: 1rem;
+      background: var(--color-accent);
+      color: var(--color-white);
+      border-radius: 50%;
+      font-size: .58rem;
+      font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    /* Search bar inside header */
+    .nav__search-wrapper {
+      position: absolute;
+      left: 50%;
+      top: 100%;
+      transform: translateX(-50%);
+      width: 90%;
+      max-width: 500px;
+      background: white;
+      border: 1px solid var(--color-gray-200);
+      border-radius: var(--radius-pill);
+      padding: .35rem .35rem .35rem 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      box-shadow: 0 8px 20px rgba(0,0,0,.1);
+      z-index: 200;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity .2s, visibility .2s;
+    }
+    .nav__search-wrapper.active {
+      opacity: 1;
+      visibility: visible;
+    }
+    .nav__search-input {
+      flex: 1;
+      border: none;
+      font-size: .9rem;
+      padding: .55rem 0;
+      background: transparent;
+    }
+    .nav__search-input:focus { outline: none; }
+    .nav__search-clear {
+      background: none;
+      border: none;
+      color: var(--color-gray-400);
+      padding: .3rem .6rem;
+      cursor: pointer;
+      font-size: .8rem;
+    }
+    .nav__search-clear:hover { color: var(--color-black); }
+
+    /* Burger label */
+    .nav__burger-label {
+      display: none;
+      width: 2.5rem; height: 2.5rem;
+      align-items: center; justify-content: center;
+      cursor: pointer;
+      font-size: 1.2rem;
+      color: var(--color-black);
+      border-radius: var(--radius-sm);
+      transition: background var(--transition-fast);
+      flex-shrink: 0;
+    }
+    .nav__burger-label:hover { background: var(--color-gray-100); }
+
+    /* Mobile menu */
+    .nav__mobile-menu {
+      position: fixed;
+      top: var(--nav-height);
+      left: 0; right: 0;
+      background: var(--color-white);
+      border-top: 1px solid var(--color-gray-200);
+      box-shadow: 0 8px 32px rgba(0,0,0,.12);
+      z-index: 99;
+      padding: 1.25rem 0 2rem;
+      max-height: 0;
+      overflow: hidden;
+      opacity: 0;
+      transform: translateY(-12px);
+      transition: max-height .35s cubic-bezier(.4,0,.2,1), opacity .25s ease, transform .3s ease;
+      pointer-events: none;
+    }
+    .nav--open .nav__mobile-menu {
+      max-height: 420px;
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: all;
+    }
+    .nav--open .nav__burger-label .icon-burger { display: none; }
+    .nav--open .nav__burger-label .icon-close  { display: inline; }
+    .icon-close { display: none; }
+
+    .nav__mobile-menu .container {
+      display: flex;
+      flex-direction: column;
+      gap: .1rem;
+    }
+    .nav__mobile-link {
+      font-size: 1.05rem;
+      font-weight: 600;
+      padding: .85rem 0;
+      border-bottom: 1px solid var(--color-gray-100);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: color var(--transition-fast);
+      letter-spacing: -.01em;
+    }
+    .nav__mobile-link:hover { color: var(--color-accent); }
+    .nav__mobile-link--sale { color: var(--color-accent); }
+    .nav__mobile-link i { font-size: .75rem; color: var(--color-gray-400); }
+
+    /* === PAGE SECTIONS (multi-page simulation) === */
+    .page-section {
+      display: none;
+    }
+    .page-section.active {
+      display: block;
+    }
+
+    /* === HERO === */
+    .hero {
+      position: relative;
+      width: 100%;
+      min-height: calc(100vh - var(--nav-height) - 2.2rem);
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      background: #f0ece7;
+    }
+    .hero__bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('https://images.pexels.com/photos/2529148/pexels-photo-2529148.jpeg?auto=compress&cs=tinysrgb&w=1400');
+      background-size: cover;
+      background-position: center right;
+      z-index: 0;
+      transition: transform 8s ease;
+    }
+    .hero__bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, rgba(255,255,255,.92) 0%, rgba(255,255,255,.7) 40%, rgba(255,255,255,.1) 80%, transparent 100%);
+    }
+    .hero__content {
+      position: relative;
+      z-index: 2;
+      padding: 6rem 0;
+      max-width: 600px;
+    }
+    .hero__eyebrow {
+      font-size: .75rem;
+      font-weight: 600;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--color-gray-600);
+      margin-bottom: 1rem;
+    }
+    .hero__title {
+      font-size: clamp(3.5rem, 8vw, 8rem);
+      font-weight: 900;
+      line-height: .92;
+      letter-spacing: -.05em;
+      text-transform: uppercase;
+      margin-bottom: 1.25rem;
+      color: var(--color-black);
+    }
+    .hero__title span { color: var(--color-accent); }
+    .hero__subtitle {
+      font-size: clamp(.95rem, 1.8vw, 1.2rem);
+      font-weight: 300;
+      color: var(--color-gray-600);
+      margin-bottom: 2.5rem;
+      line-height: 1.6;
+    }
+    .hero__cta { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
+    .hero__dots {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: .45rem;
+      z-index: 3;
+    }
+    .hero__dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--color-gray-300);
+      cursor: pointer;
+      transition: background var(--transition-fast), transform var(--transition-fast);
+    }
+    .hero__dot:hover { background: var(--color-gray-400); }
+    .hero__dot--active { background: var(--color-black); transform: scale(1.3); }
+
+    /* === SECTION HEADER === */
+    .section-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: 1.75rem;
+      gap: 1rem;
+    }
+    .section-header__title {
+      font-size: clamp(1.4rem, 3vw, 1.75rem);
+      font-weight: 800;
+      letter-spacing: -.04em;
+    }
+    .section-header__link {
+      font-size: .85rem;
+      font-weight: 600;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      white-space: nowrap;
+      transition: color var(--transition-fast);
+      cursor: pointer;
+    }
+    .section-header__link:hover { color: var(--color-accent); }
+
+    /* === SPORT CATEGORIES === */
+    .categories {
+      padding: 4.5rem 0;
+      background: var(--color-white);
+    }
+    .categories__grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: .75rem;
+    }
+    .category-card {
+      position: relative;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      aspect-ratio: 3/4;
+      cursor: pointer;
+    }
+    .category-card__bg {
+      width: 100%; height: 100%;
+      background-size: cover;
+      background-position: center;
+      transition: transform var(--transition-med);
+    }
+    .category-card:hover .category-card__bg { transform: scale(1.05); }
+    .category-card__overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,.62) 0%, rgba(0,0,0,0) 55%);
+    }
+    .category-card__info {
+      position: absolute;
+      bottom: 1.25rem;
+      left: 1.25rem;
+      right: 1.25rem;
+      z-index: 2;
+      color: var(--color-white);
+    }
+    .category-card__label {
+      font-size: .65rem;
+      font-weight: 600;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      opacity: .78;
+      margin-bottom: .3rem;
+    }
+    .category-card__name {
+      font-size: 1.35rem;
+      font-weight: 800;
+      letter-spacing: -.03em;
+      line-height: 1.1;
+    }
+    .category-card__cta {
+      display: inline-block;
+      margin-top: .55rem;
+      font-size: .75rem;
+      font-weight: 600;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      color: var(--color-white);
+      opacity: 0;
+      transform: translateY(5px);
+      transition: opacity var(--transition-fast), transform var(--transition-fast);
+    }
+    .category-card:hover .category-card__cta { opacity: 1; transform: translateY(0); }
+
+    /* === GENDER FILTER SECTION === */
+    .gender-filter {
+      padding: 3rem 0 1rem;
+      background: var(--color-white);
+    }
+    .gender-filter__title {
+      font-size: 1.4rem;
+      font-weight: 800;
+      letter-spacing: -.03em;
+      margin-bottom: 1.5rem;
+    }
+    .gender-filter__btns {
+      display: flex;
+      gap: .75rem;
+      flex-wrap: wrap;
+    }
+    .gender-filter__btn {
+      background: transparent;
+      border: 1.5px solid var(--color-gray-200);
+      border-radius: var(--radius-pill);
+      padding: .65rem 1.8rem;
+      font-size: .9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      color: var(--color-gray-600);
+    }
+    .gender-filter__btn:hover {
+      border-color: var(--color-black);
+      color: var(--color-black);
+    }
+    .gender-filter__btn.active {
+      background: var(--color-black);
+      border-color: var(--color-black);
+      color: var(--color-white);
+    }
+
+    /* === SPORT FILTER SECTION (NEW) === */
+    .sport-filter {
+      padding: 2rem 0 1rem;
+      background: var(--color-white);
+    }
+    .sport-filter__title {
+      font-size: 1.4rem;
+      font-weight: 800;
+      letter-spacing: -.03em;
+      margin-bottom: 1.5rem;
+    }
+    .sport-filter__btns {
+      display: flex;
+      gap: .75rem;
+      flex-wrap: wrap;
+    }
+    .sport-filter__btn {
+      background: transparent;
+      border: 1.5px solid var(--color-gray-200);
+      border-radius: var(--radius-pill);
+      padding: .65rem 1.8rem;
+      font-size: .9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      color: var(--color-gray-600);
+    }
+    .sport-filter__btn:hover {
+      border-color: var(--color-black);
+      color: var(--color-black);
+    }
+    .sport-filter__btn.active {
+      background: var(--color-black);
+      border-color: var(--color-black);
+      color: var(--color-white);
+    }
+
+    /* === PRODUCT GRID (used in multiple sections) === */
+    .trending, .arrivals, .icons, .sport-products {
+      padding: 4.5rem 0;
+      background: var(--color-gray-100);
+    }
+    .product-grid, .icons__grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.25rem;
+    }
+
+    .product-card {
+      background: var(--color-white);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      box-shadow: var(--shadow-card);
+      transition: box-shadow var(--transition-med), transform var(--transition-med);
+      cursor: pointer;
+      position: relative;
+    }
+    .product-card:hover {
+      box-shadow: var(--shadow-hover);
+      transform: translateY(-5px);
+    }
+    .product-card__image-wrap {
+      position: relative;
+      aspect-ratio: 1 / 1;
+      overflow: hidden;
+      background: var(--color-gray-100);
+    }
+    .product-card__image-wrap img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform var(--transition-med);
+    }
+    .product-card:hover .product-card__image-wrap img { transform: scale(1.06); }
+
+    .product-card__quick-add {
+      position: absolute;
+      bottom: .75rem; left: .75rem; right: .75rem;
+      background: var(--color-white);
+      color: var(--color-black);
+      border: none;
+      border-radius: var(--radius-pill);
+      padding: .52rem .9rem;
+      font-family: var(--font-body);
+      font-size: .775rem;
+      font-weight: 700;
+      cursor: pointer;
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity var(--transition-fast), transform var(--transition-fast), background var(--transition-fast), color var(--transition-fast);
+      box-shadow: 0 3px 10px rgba(0,0,0,.14);
+      letter-spacing: .01em;
+    }
+    .product-card:hover .product-card__quick-add { opacity: 1; transform: translateY(0); }
+    .product-card__quick-add:hover { background: var(--color-black); color: var(--color-white); }
+
+    .product-card__wish {
+      position: absolute;
+      top: .75rem; right: .75rem;
+      width: 2rem; height: 2rem;
+      background: var(--color-white);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: .82rem;
+      color: var(--color-gray-400);
+      box-shadow: 0 2px 8px rgba(0,0,0,.1);
+      cursor: pointer;
+      border: none;
+      transition: opacity var(--transition-fast), color var(--transition-fast);
+      opacity: 1;
+    }
+    .product-card__wish:hover { color: var(--color-accent-2); }
+    .product-card__wish.active { color: #ff3b30; }
+    .product-card__wish.active i { font-weight: 900; }
+
+    .product-card__badge {
+      position: absolute;
+      top: .75rem; left: .75rem;
+      background: var(--color-accent);
+      color: var(--color-white);
+      font-size: .62rem;
+      font-weight: 700;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      padding: .2rem .55rem;
+      border-radius: var(--radius-sm);
+    }
+    .product-card__badge--new { background: var(--color-black); }
+
+    .product-card__body { padding: .875rem 1rem 1.1rem; }
+    .product-card__category {
+      font-size: .68rem;
+      color: var(--color-gray-400);
+      font-weight: 500;
+      letter-spacing: .03em;
+      text-transform: uppercase;
+      margin-bottom: .25rem;
+    }
+    .product-card__name {
+      font-size: .875rem;
+      font-weight: 600;
+      line-height: 1.3;
+      margin-bottom: .45rem;
+      letter-spacing: -.01em;
+    }
+    .product-card__colors {
+      display: flex;
+      gap: .28rem;
+      margin-bottom: .6rem;
+      align-items: center;
+    }
+    .product-card__color-dot {
+      width: 13px; height: 13px;
+      border-radius: 50%;
+      border: 1.5px solid transparent;
+      cursor: pointer;
+      transition: transform var(--transition-fast), border-color var(--transition-fast);
+    }
+    .product-card__color-dot:hover { transform: scale(1.3); border-color: var(--color-gray-400); }
+    .product-card__price-row {
+      display: flex;
+      align-items: center;
+      gap: .45rem;
+    }
+    .product-card__price { font-size: .9rem; font-weight: 700; }
+    .product-card__price--original { font-size: .82rem; font-weight: 400; color: var(--color-gray-400); text-decoration: line-through; }
+    .product-card__price--sale { color: var(--color-accent); }
+
+    /* Icon card */
+    .icon-card {
+      cursor: pointer;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      transition: transform var(--transition-med);
+    }
+    .icon-card:hover { transform: translateY(-4px); }
+    .icon-card__image {
+      aspect-ratio: 1/1;
+      overflow: hidden;
+      border-radius: var(--radius-md);
+      margin-bottom: .75rem;
+    }
+    .icon-card__image img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform var(--transition-med);
+    }
+    .icon-card:hover .icon-card__image img { transform: scale(1.07); }
+    .icon-card__year {
+      font-size: .65rem;
+      font-weight: 600;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--color-gray-400);
+      margin-bottom: .25rem;
+    }
+    .icon-card__name {
+      font-size: .95rem;
+      font-weight: 700;
+      letter-spacing: -.02em;
+      margin-bottom: .25rem;
+    }
+    .icon-card__price {
+      font-size: .875rem;
+      font-weight: 500;
+      color: var(--color-gray-600);
+      margin-bottom: .65rem;
+    }
+    .icon-card__shop {
+      font-size: .78rem;
+      font-weight: 700;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      color: var(--color-black);
+      transition: color var(--transition-fast);
+    }
+    .icon-card:hover .icon-card__shop { color: var(--color-accent); }
+
+    /* === PROMO STRIP === */
+    .promo-strip {
+      padding: 4rem 0;
+      background: var(--color-white);
+    }
+    .promo-strip__grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    .promo-tile {
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      position: relative;
+      min-height: 400px;
+      display: flex;
+      align-items: flex-end;
+      cursor: pointer;
+    }
+    .promo-tile__bg {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      transition: transform var(--transition-med);
+    }
+    .promo-tile:hover .promo-tile__bg { transform: scale(1.04); }
+    .promo-tile__overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,.62) 0%, rgba(0,0,0,0) 60%);
+    }
+    .promo-tile__content {
+      position: relative;
+      z-index: 1;
+      padding: 2rem;
+      color: var(--color-white);
+    }
+    .promo-tile__eyebrow {
+      font-size: .68rem;
+      font-weight: 600;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      opacity: .75;
+      margin-bottom: .5rem;
+    }
+    .promo-tile__title {
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 900;
+      letter-spacing: -.05em;
+      line-height: .95;
+      margin-bottom: .875rem;
+    }
+    .promo-tile__cta-row { display: flex; gap: .75rem; flex-wrap: wrap; }
+
+    /* === SNKRS LAUNCHES === */
+    .snkrs {
+      padding: 4rem 0;
+      background: var(--color-black);
+      color: var(--color-white);
+    }
+    .snkrs__header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: 2rem;
+      gap: 1rem;
+    }
+    .snkrs__header-left { display: flex; align-items: center; gap: 1rem; }
+    .snkrs__logo {
+      font-size: 1.5rem;
+      font-weight: 900;
+      letter-spacing: -.05em;
+    }
+    .snkrs__tagline {
+      font-size: .8rem;
+      color: rgba(255,255,255,.45);
+      font-weight: 400;
+    }
+    .snkrs__view-all {
+      font-size: .82rem;
+      font-weight: 600;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      color: rgba(255,255,255,.7);
+      transition: color var(--transition-fast);
+    }
+    .snkrs__view-all:hover { color: var(--color-white); }
+    .snkrs__row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    .snkrs-card {
+      background: #1a1a1a;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      display: flex;
+      gap: 1.25rem;
+      padding: 1.25rem;
+      transition: background var(--transition-fast);
+      cursor: pointer;
+    }
+    .snkrs-card:hover { background: #222; }
+    .snkrs-card__img {
+      width: 120px; height: 120px;
+      flex-shrink: 0;
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      background: #2a2a2a;
+    }
+    .snkrs-card__img img { width: 100%; height: 100%; object-fit: cover; }
+    .snkrs-card__info { display: flex; flex-direction: column; justify-content: center; gap: .35rem; }
+    .snkrs-card__date {
+      font-size: .68rem;
+      font-weight: 600;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: var(--color-accent);
+    }
+    .snkrs-card__name {
+      font-size: 1rem;
+      font-weight: 800;
+      letter-spacing: -.03em;
+      line-height: 1.2;
+    }
+    .snkrs-card__sub {
+      font-size: .78rem;
+      color: rgba(255,255,255,.5);
+      font-weight: 400;
+    }
+    .snkrs-card__price {
+      font-size: .875rem;
+      font-weight: 600;
+      color: rgba(255,255,255,.8);
+    }
+    .snkrs-card__notify {
+      display: inline-flex;
+      align-items: center;
+      gap: .4rem;
+      font-size: .72rem;
+      font-weight: 600;
+      background: var(--color-accent);
+      color: var(--color-white);
+      border: none;
+      border-radius: var(--radius-pill);
+      padding: .35rem .9rem;
+      cursor: pointer;
+      transition: opacity var(--transition-fast);
+      width: fit-content;
+    }
+    .snkrs-card__notify:hover { opacity: .85; }
+
+    /* === BRAND STORY === */
+    .brand-story {
+      padding: 0;
+      background: var(--color-black);
+      color: var(--color-white);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 560px;
+    }
+    .brand-story__visual {
+      position: relative;
+      overflow: hidden;
+    }
+    .brand-story__visual img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform var(--transition-med);
+    }
+    .brand-story:hover .brand-story__visual img { transform: scale(1.03); }
+    .brand-story__visual::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to right, rgba(0,0,0,0) 60%, rgba(17,17,17,.8) 100%);
+    }
+    .brand-story__text {
+      padding: 4rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .brand-story__tag {
+      font-size: .7rem;
+      font-weight: 600;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--color-accent);
+      margin-bottom: 1.25rem;
+    }
+    .brand-story__title {
+      font-size: clamp(3rem, 5vw, 5.5rem);
+      font-weight: 900;
+      letter-spacing: -.06em;
+      line-height: .88;
+      margin-bottom: 1.5rem;
+    }
+    .brand-story__title span { color: var(--color-accent); }
+    .brand-story__body {
+      font-size: .95rem;
+      font-weight: 300;
+      line-height: 1.8;
+      color: rgba(255,255,255,.6);
+      margin-bottom: 2.5rem;
+      max-width: 40ch;
+    }
+    .brand-story__cta { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+    /* === MEMBER BANNER === */
+    .member-banner {
+      padding: 4.5rem 0;
+      background: linear-gradient(135deg, var(--color-accent) 0%, #ff8140 100%);
+      text-align: center;
+      color: var(--color-white);
+      position: relative;
+      overflow: hidden;
+    }
+    .member-banner::before {
+      content: '';
+      position: absolute;
+      top: -40%; right: -8%;
+      width: 45%; height: 200%;
+      background: rgba(255,255,255,.06);
+      border-radius: 50%;
+    }
+    .member-banner__eyebrow {
+      font-size: .7rem;
+      font-weight: 600;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      opacity: .8;
+      margin-bottom: .75rem;
+    }
+    .member-banner__title {
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      font-weight: 900;
+      letter-spacing: -.05em;
+      line-height: .9;
+      margin-bottom: 1.1rem;
+    }
+    .member-banner__sub {
+      font-size: .95rem;
+      font-weight: 300;
+      opacity: .85;
+      margin-bottom: 2.25rem;
+      max-width: 48ch;
+      margin-left: auto; margin-right: auto;
+    }
+    .member-banner__cta { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+
+    /* === WISHLIST PAGE / CART PAGE === */
+    .empty-state {
+      text-align: center;
+      padding: 5rem 1rem;
+      background: var(--color-gray-100);
+      border-radius: var(--radius-md);
+    }
+    .empty-state i {
+      font-size: 3rem;
+      color: var(--color-gray-400);
+      margin-bottom: 1.5rem;
+    }
+    .empty-state h3 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: .75rem;
+    }
+    .empty-state p {
+      color: var(--color-gray-600);
+      margin-bottom: 2rem;
+    }
+
+    /* Cart item */
+    .cart-item {
+      display: flex;
+      gap: 1.5rem;
+      padding: 1.5rem;
+      background: var(--color-white);
+      border-radius: var(--radius-md);
+      margin-bottom: 1rem;
+      align-items: center;
+    }
+    .cart-item__img {
+      width: 100px;
+      height: 100px;
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    .cart-item__img img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+    }
+    .cart-item__info {
+      flex: 1;
+    }
+    .cart-item__name {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: .25rem;
+    }
+    .cart-item__category {
+      font-size: .8rem;
+      color: var(--color-gray-400);
+      margin-bottom: .5rem;
+    }
+    .cart-item__price {
+      font-weight: 700;
+    }
+    .cart-item__remove {
+      color: var(--color-gray-400);
+      cursor: pointer;
+      padding: .5rem;
+    }
+    .cart-item__remove:hover {
+      color: var(--color-accent);
+    }
+    .cart-summary {
+      background: var(--color-white);
+      padding: 1.5rem;
+      border-radius: var(--radius-md);
+      margin-top: 2rem;
+    }
+    .cart-summary__row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+    }
+    .cart-summary__total {
+      font-size: 1.2rem;
+      font-weight: 800;
+    }
+
+    /* === MODAL (Auth & Payment) === */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,.5);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+    }
+    .modal.active {
+      display: flex;
+    }
+    .modal__content {
+      background: var(--color-white);
+      border-radius: var(--radius-md);
+      padding: 2rem;
+      max-width: 450px;
+      width: 90%;
+      max-height: 90vh;
+      overflow-y: auto;
+      position: relative;
+    }
+    .modal__close {
+      position: absolute;
+      top: 1rem; right: 1rem;
+      font-size: 1.2rem;
+      cursor: pointer;
+      color: var(--color-gray-400);
+    }
+    .modal__title {
+      font-size: 1.5rem;
+      font-weight: 800;
+      margin-bottom: 1.5rem;
+    }
+    .auth-tabs {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+      border-bottom: 1px solid var(--color-gray-200);
+    }
+    .auth-tab {
+      padding: .5rem 0;
+      font-weight: 600;
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+    }
+    .auth-tab.active {
+      border-bottom-color: var(--color-black);
+    }
+    .auth-form {
+      display: none;
+    }
+    .auth-form.active {
+      display: block;
+    }
+    .form-group {
+      margin-bottom: 1.25rem;
+    }
+    .form-group label {
+      display: block;
+      font-size: .8rem;
+      font-weight: 600;
+      margin-bottom: .3rem;
+    }
+    .form-group input {
+      width: 100%;
+      padding: .8rem 1rem;
+      border: 1px solid var(--color-gray-200);
+      border-radius: var(--radius-sm);
+      font-size: .9rem;
+    }
+    .form-group input:focus {
+      outline: none;
+      border-color: var(--color-black);
+    }
+
+    /* Payment form */
+    .payment-methods {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    .payment-method {
+      flex: 1;
+      padding: 1rem;
+      border: 1px solid var(--color-gray-200);
+      border-radius: var(--radius-sm);
+      text-align: center;
+      cursor: pointer;
+    }
+    .payment-method.active {
+      border-color: var(--color-black);
+      background: var(--color-gray-100);
+    }
+
+    /* === FOOTER === */
+    .footer {
+      background: var(--color-black);
+      color: var(--color-white);
+      padding: 4rem 0 2rem;
+    }
+    .footer__top {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 3rem;
+      padding-bottom: 3rem;
+      border-bottom: 1px solid rgba(255,255,255,.1);
+    }
+    .footer__col-title {
+      font-size: .78rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      margin-bottom: 1.25rem;
+    }
+    .footer__links { display: flex; flex-direction: column; gap: .7rem; }
+    .footer__link {
+      font-size: .82rem;
+      color: rgba(255,255,255,.52);
+      transition: color var(--transition-fast);
+      font-weight: 400;
+    }
+    .footer__link:hover { color: var(--color-white); }
+
+    .footer__bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 2rem;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+    .footer__bottom-left { display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap; }
+    .footer__logo {
+      font-size: 1.35rem;
+      font-weight: 900;
+      letter-spacing: -.04em;
+    }
+    .footer__copy {
+      font-size: .72rem;
+      color: rgba(255,255,255,.32);
+    }
+    .footer__country {
+      display: flex;
+      align-items: center;
+      gap: .4rem;
+      font-size: .78rem;
+      color: rgba(255,255,255,.52);
+      cursor: pointer;
+      padding: .4rem .75rem;
+      border: 1px solid rgba(255,255,255,.15);
+      border-radius: var(--radius-pill);
+      transition: border-color var(--transition-fast), color var(--transition-fast);
+    }
+    .footer__country:hover { border-color: rgba(255,255,255,.4); color: rgba(255,255,255,.8); }
+    .footer__social { display: flex; gap: .55rem; }
+    .footer__social-link {
+      width: 2.1rem; height: 2.1rem;
+      border-radius: 50%;
+      background: rgba(255,255,255,.1);
+      display: flex; align-items: center; justify-content: center;
+      font-size: .8rem;
+      color: rgba(255,255,255,.65);
+      transition: background var(--transition-fast), color var(--transition-fast);
+    }
+    .footer__social-link:hover { background: var(--color-accent); color: var(--color-white); }
+    .footer__legal { display: flex; gap: 1.25rem; flex-wrap: wrap; }
+    .footer__legal-link {
+      font-size: .7rem;
+      color: rgba(255,255,255,.32);
+      transition: color var(--transition-fast);
+    }
+    .footer__legal-link:hover { color: rgba(255,255,255,.65); }
+
+    /* === SCROLL FADE-IN === */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity .55s ease, transform .55s ease;
+    }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+    /* === RESPONSIVE === */
+    @media (max-width: 1024px) {
+      :root { --container-pad: 1.75rem; }
+      .nav__links { display: none; }
+      .nav__burger-label { display: flex; }
+      .nav__logo { margin-right: auto; }
+      .categories__grid { grid-template-columns: repeat(2, 1fr); }
+      .product-grid, .icons__grid { grid-template-columns: repeat(2, 1fr); }
+      .brand-story { grid-template-columns: 1fr; min-height: auto; }
+      .brand-story__visual { aspect-ratio: 16/8; }
+      .brand-story__visual::after { display: none; }
+      .brand-story__text { padding: 3rem 2rem; }
+      .brand-story__body { max-width: 100%; }
+      .footer__top { grid-template-columns: repeat(2, 1fr); gap: 2rem; }
+    }
+    @media (max-width: 768px) {
+      :root { --container-pad: 1.25rem; --nav-height: 56px; }
+      .promo-strip__grid { grid-template-columns: 1fr; }
+      .snkrs__row { grid-template-columns: 1fr; }
+      .hero__content { padding: 4rem 0; }
+      .hero__bg::after { background: linear-gradient(90deg, rgba(255,255,255,.9) 0%, rgba(255,255,255,.6) 60%, transparent 100%); }
+      .footer__bottom { flex-direction: column; align-items: flex-start; gap: 1.25rem; }
+      .footer__bottom-left { flex-direction: column; align-items: flex-start; gap: .5rem; }
+    }
+    @media (max-width: 480px) {
+      :root { --container-pad: 1rem; }
+      .product-grid, .icons__grid { grid-template-columns: 1fr !important; }
+      .categories__grid { grid-template-columns: 1fr 1fr; gap: .6rem; }
+      .category-card { aspect-ratio: 2/3; }
+      .category-card__name { font-size: 1.1rem; }
+      .hero__title { font-size: 3rem; }
+      .hero__bg::after { background: rgba(255,255,255,.85); }
+      .footer__top { grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+      .footer__legal { gap: .75rem; }
+      .snkrs-card { flex-direction: column; }
+      .snkrs-card__img { width: 100%; height: 180px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- PROMO BAR -->
+  <div class="promo-bar" role="banner">
+    <div class="promo-bar__marquee">
+      <span class="promo-bar__text">
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        🚚 Free Standard Shipping on all orders over $50 &nbsp; · &nbsp;
+        New: Air Max Pulse is here — <a href="#" onclick="window.location='#'">Shop Now</a>
+        &nbsp; · &nbsp;
+        Members get early access — <a href="#" onclick="openAuthModal()">Join Nike Free</a>
+        &nbsp; · &nbsp;
+        Use code <strong>AIRMAX25</strong> for 15% off
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      </span>
+    </div>
+  </div>
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="container">
+      <nav class="nav" aria-label="Main navigation">
+
+        <!-- Logo -->
+        <a href="#" class="nav__logo" onclick="switchPage('home'); return false;" aria-label="Nike Home">
+          <svg viewBox="0 0 200 78" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M183 12C168.5 17.2 0 72 0 72C0 72 14 60.8 27 45C37.5 32.5 45.5 18.5 53.5 17C60.8 15.5 65.5 23.5 63.5 34.5C61.5 47 52 60.5 47 65C47 65 104 42.5 151 26C172 18.5 183 12 183 12Z" fill="#111111"/>
+          </svg>
+        </a>
+
+        <!-- Desktop nav links - now clickable to switch pages -->
+        <ul class="nav__links" role="list">
+          <li><a href="#" class="nav__link nav__link--active" onclick="switchPage('home'); return false;">New &amp; Featured</a></li>
+          <li><a href="#" class="nav__link" onclick="switchPage('men'); return false;">Men</a></li>
+          <li><a href="#" class="nav__link" onclick="switchPage('women'); return false;">Women</a></li>
+          <li><a href="#" class="nav__link" onclick="switchPage('kids'); return false;">Kids</a></li>
+          <li><a href="#" class="nav__link nav__link--sale" onclick="switchPage('sale'); return false;">Sale</a></li>
+          <li><a href="#" class="nav__link" onclick="switchPage('snkrs'); return false;">SNKRS</a></li>
+        </ul>
+
+        <!-- Action icons with counters -->
+        <div class="nav__actions">
+          <button class="nav__action-btn" id="searchToggleBtn" aria-label="Search">
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </button>
+          <button class="nav__action-btn" id="wishlistHeaderBtn" aria-label="Favourites" onclick="switchPage('wishlist'); return false;">
+            <i class="fa-regular fa-heart"></i>
+            <span class="nav__badge" id="wishlistCountBadge" style="display: none;">0</span>
+          </button>
+          <button class="nav__action-btn" id="cartHeaderBtn" aria-label="Shopping bag" onclick="switchPage('cart'); return false;">
+            <i class="fa-solid fa-bag-shopping"></i>
+            <span class="nav__badge" id="cartCountBadge">0</span>
+          </button>
+          <button class="nav__action-btn" aria-label="Account" onclick="openAuthModal()">
+            <i class="fa-regular fa-user"></i>
+          </button>
+        </div>
+
+        <!-- Burger label -->
+        <label class="nav__burger-label" aria-label="Toggle menu" aria-expanded="false" role="button" tabindex="0">
+          <i class="fa-solid fa-bars icon-burger"></i>
+          <i class="fa-solid fa-xmark icon-close"></i>
+        </label>
+
+        <!-- Mobile menu -->
+        <div class="nav__mobile-menu" role="navigation" aria-label="Mobile navigation">
+          <div class="container">
+            <a href="#" class="nav__mobile-link" onclick="switchPage('home'); return false;">New &amp; Featured <i class="fa-solid fa-chevron-right"></i></a>
+            <a href="#" class="nav__mobile-link" onclick="switchPage('men'); return false;">Men <i class="fa-solid fa-chevron-right"></i></a>
+            <a href="#" class="nav__mobile-link" onclick="switchPage('women'); return false;">Women <i class="fa-solid fa-chevron-right"></i></a>
+            <a href="#" class="nav__mobile-link" onclick="switchPage('kids'); return false;">Kids <i class="fa-solid fa-chevron-right"></i></a>
+            <a href="#" class="nav__mobile-link nav__mobile-link--sale" onclick="switchPage('sale'); return false;">Sale <i class="fa-solid fa-chevron-right"></i></a>
+            <a href="#" class="nav__mobile-link" onclick="switchPage('snkrs'); return false;">SNKRS <i class="fa-solid fa-chevron-right"></i></a>
+            <a href="#" class="nav__mobile-link" onclick="openAuthModal(); return false;">Account <i class="fa-solid fa-chevron-right"></i></a>
+          </div>
+        </div>
+
+        <!-- Search bar (hidden by default) -->
+        <div class="nav__search-wrapper" id="searchBar">
+          <i class="fa-solid fa-search" style="color: var(--color-gray-400);"></i>
+          <input type="text" class="nav__search-input" id="searchInput" placeholder="Search Nike shoes..." aria-label="Search">
+          <button class="nav__search-clear" id="searchClearBtn" aria-label="Clear search"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ==================== PAGE: HOME ==================== -->
+    <div id="page-home" class="page-section active">
+
+      <!-- HERO -->
+      <section class="hero" aria-label="Hero banner — Air Max Pulse">
+        <div class="hero__bg" role="img" aria-label="Nike Air Max Pulse sneaker"></div>
+        <div class="container">
+          <div class="hero__content">
+            <p class="hero__eyebrow">Just In</p>
+            <h1 class="hero__title">Air Max<br /><span>Pulse</span></h1>
+            <p class="hero__subtitle">Feel the Unreal.<br />Engineered for the streets.</p>
+            <div class="hero__cta">
+              <a href="#" class="btn btn--dark">Shop Now</a>
+              <a href="#" class="btn btn--ghost" onclick="switchPage('snkrs'); return false;">Explore SNKRS →</a>
+            </div>
+          </div>
+        </div>
+        <div class="hero__dots" aria-hidden="true">
+          <div class="hero__dot hero__dot--active"></div>
+          <div class="hero__dot"></div>
+          <div class="hero__dot"></div>
+          <div class="hero__dot"></div>
+        </div>
+      </section>
+
+      <!-- SPORT CATEGORIES -->
+      <section class="categories" aria-label="Shop by sport">
+        <div class="container">
+          <div class="section-header">
+            <h2 class="section-header__title">Shop by Sport</h2>
+            <a href="#" class="section-header__link" onclick="filterSport('all'); return false;">View All</a>
+          </div>
+          <div class="categories__grid">
+            <article class="category-card" onclick="filterSport('running'); return false;">
+              <div class="category-card__bg" style="background-image: url('https://images.pexels.com/photos/5602876/pexels-photo-5602876.jpeg?auto=compress&cs=tinysrgb&w=600');"></div>
+              <div class="category-card__overlay"></div>
+              <div class="category-card__info">
+                <p class="category-card__label">Performance</p>
+                <h3 class="category-card__name">Running</h3>
+                <a href="#" class="category-card__cta" onclick="filterSport('running'); return false;">Shop Running →</a>
+              </div>
+            </article>
+            <article class="category-card" onclick="filterSport('basketball'); return false;">
+              <div class="category-card__bg" style="background-image: url('https://images.pexels.com/photos/6794804/pexels-photo-6794804.jpeg?auto=compress&cs=tinysrgb&w=600');"></div>
+              <div class="category-card__overlay"></div>
+              <div class="category-card__info">
+                <p class="category-card__label">Court Ready</p>
+                <h3 class="category-card__name">Basketball</h3>
+                <a href="#" class="category-card__cta" onclick="filterSport('basketball'); return false;">Shop Basketball →</a>
+              </div>
+            </article>
+            <article class="category-card" onclick="filterSport('football'); return false;">
+              <div class="category-card__bg" style="background-image: url('https://images.pexels.com/photos/46798/the-ball-stadion-football-the-pitch-46798.jpeg?auto=compress&cs=tinysrgb&w=600');"></div>
+              <div class="category-card__overlay"></div>
+              <div class="category-card__info">
+                <p class="category-card__label">The Beautiful Game</p>
+                <h3 class="category-card__name">Football</h3>
+                <a href="#" class="category-card__cta" onclick="filterSport('football'); return false;">Shop Football →</a>
+              </div>
+            </article>
+            <article class="category-card" onclick="filterSport('training'); return false;">
+              <div class="category-card__bg" style="background-image: url('https://images.pexels.com/photos/841130/pexels-photo-841130.jpeg?auto=compress&cs=tinysrgb&w=600');"></div>
+              <div class="category-card__overlay"></div>
+              <div class="category-card__info">
+                <p class="category-card__label">Strength &amp; Speed</p>
+                <h3 class="category-card__name">Training</h3>
+                <a href="#" class="category-card__cta" onclick="filterSport('training'); return false;">Shop Training →</a>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- GENDER FILTER SECTION -->
+      <section class="gender-filter">
+        <div class="container">
+          <h2 class="gender-filter__title">Shop for</h2>
+          <div class="gender-filter__btns">
+            <button class="gender-filter__btn active" data-gender="all">All</button>
+            <button class="gender-filter__btn" data-gender="men">Men</button>
+            <button class="gender-filter__btn" data-gender="women">Women</button>
+            <button class="gender-filter__btn" data-gender="kids">Kids</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- TRENDING NOW -->
+      <section class="trending" aria-label="Trending products">
+        <div class="container">
+          <div class="section-header">
+            <h2 class="section-header__title">Trending Now</h2>
+            <a href="#" class="section-header__link" onclick="switchPage('men'); return false;">Shop All</a>
+          </div>
+          <div class="product-grid" id="trendingGrid">
+            <!-- будет заполнено JS -->
+          </div>
+        </div>
+      </section>
+
+      <!-- PROMO STRIP -->
+      <section class="promo-strip" aria-label="Featured collections">
+        <div class="container">
+          <div class="promo-strip__grid">
+            <article class="promo-tile">
+              <div class="promo-tile__bg" style="background-image: url('https://images.pexels.com/photos/2529148/pexels-photo-2529148.jpeg?auto=compress&cs=tinysrgb&w=800');"></div>
+              <div class="promo-tile__overlay"></div>
+              <div class="promo-tile__content">
+                <p class="promo-tile__eyebrow">New Season Drop</p>
+                <h2 class="promo-tile__title">Air Max<br />Pulse</h2>
+                <div class="promo-tile__cta-row">
+                  <a href="#" class="btn btn--white" onclick="switchPage('men'); return false;">Shop Men's</a>
+                  <a href="#" class="btn btn--outline-white" onclick="switchPage('women'); return false;">Shop Women's</a>
+                </div>
+              </div>
+            </article>
+            <article class="promo-tile">
+              <div class="promo-tile__bg" style="background-image: url('https://images.pexels.com/photos/1032110/pexels-photo-1032110.jpeg?auto=compress&cs=tinysrgb&w=800');"></div>
+              <div class="promo-tile__overlay"></div>
+              <div class="promo-tile__content">
+                <p class="promo-tile__eyebrow">Heritage Collection</p>
+                <h2 class="promo-tile__title">Classic<br />Icons</h2>
+                <div class="promo-tile__cta-row">
+                  <a href="#" class="btn btn--white" onclick="switchPage('sale'); return false;">Shop Classics</a>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- NEW ARRIVALS -->
+      <section class="arrivals" aria-label="New arrivals">
+        <div class="container">
+          <div class="section-header">
+            <h2 class="section-header__title">New Arrivals</h2>
+            <a href="#" class="section-header__link" onclick="switchPage('women'); return false;">See All New</a>
+          </div>
+          <div class="product-grid" id="arrivalsGrid">
+            <!-- будет заполнено JS -->
+          </div>
+        </div>
+      </section>
+
+      <!-- SPORT PRODUCTS SECTION (Running, Basketball, Football, Training) -->
+      <section class="sport-products" id="sportProductsSection" aria-label="Sport specific shoes">
+        <div class="container">
+          <div class="section-header">
+            <h2 class="section-header__title" id="sportSectionTitle">Running Shoes</h2>
+            <a href="#" class="section-header__link" onclick="filterSport('all'); return false;">View All</a>
+          </div>
+          <div class="product-grid" id="sportProductGrid">
+            <!-- будет заполнено JS -->
+          </div>
+        </div>
+      </section>
+
+      <!-- ICONS / CLASSICS -->
+      <section class="icons" aria-label="Iconic Nike models">
+        <div class="container">
+          <div class="section-header">
+            <h2 class="section-header__title">Nike Icons</h2>
+            <a href="#" class="section-header__link" onclick="switchPage('men'); return false;">Shop All Icons</a>
+          </div>
+          <div class="icons__grid" id="iconsGrid">
+            <!-- будет заполнено JS -->
+          </div>
+        </div>
+      </section>
+
+      <!-- SNKRS LAUNCHES -->
+      <section class="snkrs" aria-label="SNKRS upcoming launches">
+        <div class="container">
+          <div class="snkrs__header">
+            <div class="snkrs__header-left">
+              <span class="snkrs__logo">SNKRS</span>
+              <span class="snkrs__tagline">Upcoming drops</span>
+            </div>
+            <a href="#" class="snkrs__view-all" onclick="switchPage('snkrs'); return false;">View all releases →</a>
+          </div>
+          <div class="snkrs__row">
+            <article class="snkrs-card">
+              <div class="snkrs-card__img">
+                <img src="https://images.pexels.com/photos/15511612/pexels-photo-15511612/free-photo-of-shoes-on-court.jpeg?auto=compress&cs=tinysrgb&w=300" alt="Jordan 1 Retro High OG" loading="lazy" />
+              </div>
+              <div class="snkrs-card__info">
+                <p class="snkrs-card__date">Feb 22 · 10:00 AM</p>
+                <h3 class="snkrs-card__name">Jordan 1 Retro High OG<br />"Bred Reimagined"</h3>
+                <p class="snkrs-card__sub">Men's Shoes · 4 Colours</p>
+                <p class="snkrs-card__price">$180</p>
+                <button class="snkrs-card__notify"><i class="fa-regular fa-bell"></i> Notify Me</button>
+              </div>
+            </article>
+            <article class="snkrs-card">
+              <div class="snkrs-card__img">
+                <img src="https://images.pexels.com/photos/15511610/pexels-photo-15511610/free-photo-of-sneaker-on-basketball-court.jpeg?auto=compress&cs=tinysrgb&w=300" alt="Nike Air Max Plus" loading="lazy" />
+              </div>
+              <div class="snkrs-card__info">
+                <p class="snkrs-card__date">Mar 1 · 10:00 AM</p>
+                <h3 class="snkrs-card__name">Nike Air Max Plus<br />"Hyper Jade"</h3>
+                <p class="snkrs-card__sub">Men's / Women's · 2 Colours</p>
+                <p class="snkrs-card__price">$165</p>
+                <button class="snkrs-card__notify"><i class="fa-regular fa-bell"></i> Notify Me</button>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- BRAND STORY — NIKE AIR -->
+      <section class="brand-story" aria-label="Nike Air brand story">
+        <div class="brand-story__visual">
+          <img src="https://images.pexels.com/photos/1032110/pexels-photo-1032110.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Close-up of Nike Air unit sole" loading="lazy" />
+        </div>
+        <div class="brand-story__text">
+          <p class="brand-story__tag">The Legend Lives On</p>
+          <h2 class="brand-story__title">Nike<br /><span>Air</span></h2>
+          <p class="brand-story__body">
+            Born in 1978, Nike Air changed sport forever. The iconic visible Air unit — a pocket of pressurised gas in the sole — transformed how athletes train, compete, and move. Decades later, the revolution continues.
+          </p>
+          <div class="brand-story__cta">
+            <a href="#" class="btn btn--primary" onclick="filterSport('running'); return false;">Shop Air Max</a>
+            <a href="#" class="btn btn--outline-white" onclick="switchPage('men'); return false;">Explore the History</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- MEMBER BANNER -->
+      <section class="member-banner" aria-label="Nike membership">
+        <div class="container">
+          <p class="member-banner__eyebrow">Nike Membership</p>
+          <h2 class="member-banner__title">Move, Shop<br />&amp; Celebrate</h2>
+          <p class="member-banner__sub">Join free. Get first access to exclusive drops, personalised recommendations, and member-only rewards.</p>
+          <div class="member-banner__cta">
+            <a href="#" class="btn btn--dark" onclick="openAuthModal(); return false;">Join Nike for Free</a>
+            <a href="#" class="btn btn--ghost" style="color:white; text-decoration-color:rgba(255,255,255,.55);" onclick="openAuthModal(); return false;">Learn More</a>
+          </div>
+        </div>
+      </section>
+
+    </div> <!-- end page-home -->
+
+    <!-- ==================== PAGE: MEN ==================== -->
+    <div id="page-men" class="page-section">
+      <div class="container" style="padding-top: 3rem; padding-bottom: 3rem;">
+        <h1 class="section-header__title">Men's Shoes</h1>
+        <div class="gender-filter__btns" style="margin-top: 1.5rem; margin-bottom: 2rem;">
+          <button class="gender-filter__btn active" data-gender="men">All Men's</button>
+          <button class="gender-filter__btn" data-gender="men" data-sport-filter="running">Running</button>
+          <button class="gender-filter__btn" data-gender="men" data-sport-filter="basketball">Basketball</button>
+          <button class="gender-filter__btn" data-gender="men" data-sport-filter="football">Football</button>
+          <button class="gender-filter__btn" data-gender="men" data-sport-filter="training">Training</button>
+        </div>
+        <div class="product-grid" id="menProductsGrid"></div>
+      </div>
+    </div>
+
+    <!-- ==================== PAGE: WOMEN ==================== -->
+    <div id="page-women" class="page-section">
+      <div class="container" style="padding-top: 3rem; padding-bottom: 3rem;">
+        <h1 class="section-header__title">Women's Shoes</h1>
+        <div class="gender-filter__btns" style="margin-top: 1.5rem; margin-bottom: 2rem;">
+          <button class="gender-filter__btn active" data-gender="women">All Women's</button>
+          <button class="gender-filter__btn" data-gender="women" data-sport-filter="running">Running</button>
+          <button class="gender-filter__btn" data-gender="women" data-sport-filter="basketball">Basketball</button>
+          <button class="gender-filter__btn" data-gender="women" data-sport-filter="football">Football</button>
+          <button class="gender-filter__btn" data-gender="women" data-sport-filter="training">Training</button>
+        </div>
+        <div class="product-grid" id="womenProductsGrid"></div>
+      </div>
+    </div>
+
+    <!-- ==================== PAGE: KIDS ==================== -->
+    <div id="page-kids" class="page-section">
+      <div class="container" style="padding-top: 3rem; padding-bottom: 3rem;">
+        <h1 class="section-header__title">Kids' Shoes</h1>
+        <div class="gender-filter__btns" style="margin-top: 1.5rem; margin-bottom: 2rem;">
+          <button class="gender-filter__btn active" data-gender="kids">All Kids'</button>
+          <button class="gender-filter__btn" data-gender="kids" data-sport-filter="running">Running</button>
+          <button class="gender-filter__btn" data-gender="kids" data-sport-filter="basketball">Basketball</button>
+          <button class="gender-filter__btn" data-gender="kids" data-sport-filter="football">Football</button>
+          <button class="gender-filter__btn" data-gender="kids" data-sport-filter="training">Training</button>
+        </div>
+        <div class="product-grid" id="kidsProductsGrid"></div>
+      </div>
+    </div>
+
+    <!-- ==================== PAGE: SALE ==================== -->
+    <div id="page-sale" class="page-section">
+      <div class="container" style="padding-top: 3rem; padding-bottom: 3rem;">
+        <h1 class="section-header__title">Sale</h1>
+        <div class="product-grid" id="saleProductsGrid"></div>
+      </div>
+    </div>
+
+    <!-- ==================== PAGE: SNKRS ==================== -->
+    <div id="page-snkrs" class="page-section">
+      <div class="container" style="padding-top: 3rem; padding-bottom: 3rem;">
+        <h1 class="section-header__title">SNKRS Launches</h1>
+        <div class="snkrs__row" style="grid-template-columns: 1fr 1fr; background: transparent;">
+          <!-- copy from home SNKRS -->
+          <article class="snkrs-card">
+            <div class="snkrs-card__img">
+              <img src="https://images.pexels.com/photos/15511612/pexels-photo-15511612/free-photo-of-shoes-on-court.jpeg?auto=compress&cs=tinysrgb&w=300" alt="Jordan 1 Retro High OG" loading="lazy" />
+            </div>
+            <div class="snkrs-card__info">
+              <p class="snkrs-card__date">Feb 22 · 10:00 AM</p>
+              <h3 class="snkrs-card__name">Jordan 1 Retro High OG<br />"Bred Reimagined"</h3>
+              <p class="snkrs-card__sub">Men's Shoes · 4 Colours</p>
+              <p class="snkrs-card__price">$180</p>
+              <button class="snkrs-card__notify"><i class="fa-regular fa-bell"></i> Notify Me</button>
+            </div>
+          </article>
+          <article class="snkrs-card">
+            <div class="snkrs-card__img">
+              <img src="https://images.pexels.com/photos/15511610/pexels-photo-15511610/free-photo-of-sneaker-on-basketball-court.jpeg?auto=compress&cs=tinysrgb&w=300" alt="Nike Air Max Plus" loading="lazy" />
+            </div>
+            <div class="snkrs-card__info">
+              <p class="snkrs-card__date">Mar 1 · 10:00 AM</p>
+              <h3 class="snkrs-card__name">Nike Air Max Plus<br />"Hyper Jade"</h3>
+              <p class="snkrs-card__sub">Men's / Women's · 2 Colours</p>
+              <p class="snkrs-card__price">$165</p>
+              <button class="snkrs-card__notify"><i class="fa-regular fa-bell"></i> Notify Me</button>
+            </div>
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== PAGE: WISHLIST ==================== -->
+    <div id="page-wishlist" class="page-section">
+      <div class="container" style="padding-top: 3rem; padding-bottom: 3rem;">
+        <h1 class="section-header__title">Your Favourites</h1>
+        <div id="wishlistContainer"></div>
+      </div>
+    </div>
+
+    <!-- ==================== PAGE: CART ==================== -->
+    <div id="page-cart" class="page-section">
+      <div class="container" style="padding-top: 3rem; padding-bottom: 3rem;">
+        <h1 class="section-header__title">Shopping Bag</h1>
+        <div id="cartContainer"></div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- FOOTER (same on all pages) -->
+  <footer class="footer" aria-label="Site footer">
+    <div class="container">
+      <div class="footer__top">
+        <div>
+          <h3 class="footer__col-title">Resources</h3>
+          <ul class="footer__links">
+            <li><a href="#" class="footer__link">Find a Store</a></li>
+            <li><a href="#" class="footer__link" onclick="openAuthModal(); return false;">Become a Member</a></li>
+            <li><a href="#" class="footer__link">Send Us Feedback</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="footer__col-title">Help</h3>
+          <ul class="footer__links">
+            <li><a href="#" class="footer__link">Get Help</a></li>
+            <li><a href="#" class="footer__link">Order Status</a></li>
+            <li><a href="#" class="footer__link">Delivery</a></li>
+            <li><a href="#" class="footer__link">Returns</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="footer__col-title">Company</h3>
+          <ul class="footer__links">
+            <li><a href="#" class="footer__link">About Nike</a></li>
+            <li><a href="#" class="footer__link">Careers</a></li>
+            <li><a href="#" class="footer__link">Sustainability</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="footer__col-title">Promos</h3>
+          <ul class="footer__links">
+            <li><a href="#" class="footer__link" onclick="switchPage('sale'); return false;">Sale</a></li>
+            <li><a href="#" class="footer__link" onclick="switchPage('snkrs'); return false;">Nike SNKRS</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <div class="footer__bottom-left">
+          <span class="footer__logo">NIKE</span>
+          <p class="footer__copy">© 2025 Nike, Inc. All Rights Reserved</p>
+        </div>
+        <a href="#" class="footer__country" aria-label="Change country or region">
+          <i class="fa-solid fa-globe"></i> United States <i class="fa-solid fa-chevron-down" style="font-size:.65rem;"></i>
+        </a>
+        <div class="footer__social" aria-label="Social media">
+          <a href="#" class="footer__social-link" aria-label="X (Twitter)"><i class="fa-brands fa-x-twitter"></i></a>
+          <a href="#" class="footer__social-link" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="#" class="footer__social-link" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+          <a href="#" class="footer__social-link" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+        </div>
+        <nav class="footer__legal" aria-label="Legal links">
+          <a href="#" class="footer__legal-link">Terms of Use</a>
+          <a href="#" class="footer__legal-link">Privacy Policy</a>
+        </nav>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==================== MODAL: AUTH ==================== -->
+  <div id="authModal" class="modal">
+    <div class="modal__content">
+      <span class="modal__close" onclick="closeAuthModal()">&times;</span>
+      <h2 class="modal__title">Your Nike Account</h2>
+      <div class="auth-tabs">
+        <span class="auth-tab active" onclick="switchAuthTab('login')">Login</span>
+        <span class="auth-tab" onclick="switchAuthTab('register')">Join Us</span>
+      </div>
+      <div id="loginForm" class="auth-form active">
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" placeholder="your@email.com">
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" placeholder="••••••••">
+        </div>
+        <button class="btn btn--dark" style="width: 100%;" onclick="closeAuthModal(); alert('Logged in (demo)');">Sign In</button>
+        <p style="margin-top: 1rem; font-size: .8rem; color: var(--color-gray-400);">Demo: any email/password works</p>
+      </div>
+      <div id="registerForm" class="auth-form">
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" placeholder="your@email.com">
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" placeholder="••••••••">
+        </div>
+        <div class="form-group">
+          <label>Confirm Password</label>
+          <input type="password" placeholder="••••••••">
+        </div>
+        <button class="btn btn--dark" style="width: 100%;" onclick="closeAuthModal(); alert('Registered (demo)');">Join Nike</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL: PAYMENT ==================== -->
+  <div id="paymentModal" class="modal">
+    <div class="modal__content">
+      <span class="modal__close" onclick="closePaymentModal()">&times;</span>
+      <h2 class="modal__title">Checkout</h2>
+      <div class="payment-methods">
+        <div class="payment-method active" onclick="selectPaymentMethod('card')">
+          <i class="fa-regular fa-credit-card"></i> Card
+        </div>
+        <div class="payment-method" onclick="selectPaymentMethod('paypal')">
+          <i class="fa-brands fa-paypal"></i> PayPal
+        </div>
+      </div>
+      <div id="cardPaymentForm">
+        <div class="form-group">
+          <label>Card Number</label>
+          <input type="text" placeholder="1234 5678 9012 3456">
+        </div>
+        <div class="form-group" style="display: flex; gap: 1rem;">
+          <div style="flex:1;">
+            <label>Expiry</label>
+            <input type="text" placeholder="MM/YY">
+          </div>
+          <div style="flex:1;">
+            <label>CVV</label>
+            <input type="text" placeholder="123">
+          </div>
+        </div>
+        <button class="btn btn--dark" style="width: 100%;" onclick="closePaymentModal(); alert('Order placed (demo)');">Pay $XX.XX</button>
+      </div>
+      <div id="paypalForm" style="display: none; text-align: center; padding: 2rem;">
+        <p>Redirecting to PayPal...</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // --------------------------------------------------------------
+    // GLOBAL STATE
+    // --------------------------------------------------------------
+    let cart = [];
+    let wishlist = [];
+
+    // --------------------------------------------------------------
+    // PRODUCT DATABASE (expanded with 30+ models, all images fixed)
+    // --------------------------------------------------------------
+    const productDB = [
+      // Men's - Running
+      { id: 'am97', name: 'Nike Air Max 97', gender: 'men', sport: 'running', price: 175, original: null, image: 'https://images.pexels.com/photos/11631805/pexels-photo-11631805.jpeg?auto=compress&cs=tinysrgb&w=500', category: 'Men\'s Running' },
+      { id: 'infinity4', name: 'Nike React Infinity 4', gender: 'men', sport: 'running', price: 160, original: null, image: 'https://images.pexels.com/photos/2529148/pexels-photo-2529148.jpeg?auto=compress&cs=tinysrgb&w=500', category: 'Men\'s Running' },
+      { id: 'pegasus40-m', name: 'Nike Pegasus 40', gender: 'men', sport: 'running', price: 130, original: null, image: 'https://images.pexels.com/photos/1598505/pexels-photo-1598505.jpeg?auto=compress&cs=tinysrgb&w=500', category: 'Men\'s Running' },
+      { id: 'vomero17', name: 'Nike Vomero 17', gender: 'men', sport: 'running', price: 150, original: null, image: 'https://images.pexels.com/photos/1032110/pexels-photo-1032110.jpeg?auto=compress&cs=tinysrgb&w=500', category: 'Men\'s Running' },
+      // Men's - Basketball
+      { id: 'j1-mid', name: 'Jordan 1 Mid', gender: 'men', sport: 'basketball', price: 95, original: 130, image: 'https://images.pexels.com/photos/15511612/pexels-photo-15511612/free-photo-of-shoes-on-court.jpeg?auto=compress&cs=tinysrgb&w=500', category: 'Men\'s Basketball' },
+      { id: 'lebron20', name: 'LeBron 20', gender: 'men', sport: 'basketball', price: 200, original: null, image: 'https://images.pexels.com/photos/6794804/pexels-photo-6794804.jpeg?auto=compress&cs=tinysrgb&w=500', category: 'Men\'s Basketball' },
+      { id: 'kd16', name: 'KD 16', gender: 'men', sport: 'basketball', price: 160, original: null, image: 'https://images.pexels.com/photos/15511610/pexels-photo-15511610/free-photo-of-sneaker-on-basketball-court.jpeg?auto=compress&cs=tinysrgb&w=500', category: 'Men\'s Basketball' },
+      { id: 'kyrie8', name: 'Kyrie 8', gender: 'men', sport: 'basketball', price: 130, original: null, image: 'https://images.pexels.com/photos/1598505/pexels-photo-1598505.jpeg?auto=compress&cs=tinysrgb&w=500', category: 'Men\'s Basketball' },
+      // Men's - Football
+      { id: 'mercurial', name: 'Mercurial Superfly 9', gender: 'men', sport: 'football', price: 275, original: null, image: 'https://images.pexels.com/photos/46798/the-ball-stadion-football-the-pitch-46798.jpeg?auto=compress&cs=tinysrgb&w=500', category: 'Men\'s Football' },
+      { id: 'phantom', name: 'Phantom GT 3', gender: 'men', sport: 'football', price: 250, original: null, image: 'https://images.pexels.com/photos/5602876/pexels-photo-5602876.jpeg?auto=compress&cs=tinysrgb&w=500', category: 'Men\'s Football' },
+      { id: 'tiempo', name: 'Tiempo Legend 10', gender: 'men', sport: 'football', price: 220, original: null, image: 'https://images.pexels.com/photos/841130/pexels-photo-841130.jpeg?auto=compress&cs=tinysrgb&w=500', category: 'Men\'s Football' },
+      // Men's - Training
+      { id: 'metcon8', name: 'Metcon 8', gender: 'men', sport: 'training', price: 130, original: null, image: 'https://images.pexels.com/photos/5602876/pexels-photo-5602876.jpeg?auto=compress&cs=tinysrgb&w=500', category: 'Men\'s Training' },
+      { id: 'superrep', name: 'SuperRep Go 3', gender: 'men', sport: 'training', price: 120, original: null, image: 'https://images.pexels.com/photos/841130/pexels-photo-841130.jpeg?auto=compress&cs=tinysrgb&w=500', category: 'Men\'s Training' },
+      // Men's - Lifestyle
+      { id: 'af1-07', name: 'Nike Air Force 1 \'07', gender: 'men', sport: 'lifestyle', price: 110, original: null, image: 'https://images.pexels.com/photos/1598505/pexels-photo-1598505.jpeg?auto=compress&cs=tinysrgb&w=500', category: 'Men\'s Lifestyle' },
+      { id: 'cortez72', name: 'Nike Cortez \'72', gender: 'men', sport: 'lifestyle', price: 100, original: null, image: 'https://images.pexels.com/photos/1032110/pexels-photo-1032110.jpeg?auto=compress&cs=tinysrgb&w=500', category: 'Men\'s Lifestyle' },
+      { id: 'blazer-mid', name: 'Nike Blazer Mid \'77', gender: 'men', sport: 'lifestyle', price: 105, original: null, image: 'https://images.pexels.com/photos/2529148/pexels-photo-2529148.jpeg?auto=compress&cs=tinysrgb&w=500', category: 'Men\'s Lifestyle' },
+
+      // Women's - Running
+      { id: 'pegasus41-w', name: 'Nike Air Zoom Pegasus 41', gender: 'women', sport: 'running', price: 130, original: null, image: 'https://images.pexels.com/photos/1598505/pexels-photo-1598505.jpeg?auto=compress&cs=tinysrgb&w=500', category: 'Women\'s Running' },
+      { id: 'winflo10', name: 'Nike Winflo 10', gender: 'women', sport: 'running', price: 110, original: null, image: 'https://images.pexels.com/photos/1032110/pexels-photo-1032110.jpeg?auto=compress&cs=tinysrgb&w=500', category: 'Women\'s Running' },
+      // Women's - Basketball
+      { id: 'j1-mid-w', name: 'Jordan 1 Mid', gender: 'women', sport: 'basketball', price: 95, original: 130, image: 'https://images.pexels.com/photos/15511612/pexels-photo-15511612/free-photo-of-shoes-on-court.jpeg?auto=compress&cs=tinysrgb&w=500', category: 'Women\'s Basketball' },
+      // Women's - Training
+      { id: 'superrep-w', name: 'SuperRep Go 3', gender: 'women', sport: 'training', price: 120, original: null, image: 'https://images.pexels.com/photos/841130/pexels-photo-841130.jpeg?auto=compress&cs=tinysrgb&w=500', category: 'Women\'s Training' },
+      // Women's - Lifestyle
+      { id: 'blazer77-w', name: 'Nike Blazer Mid \'77', gender: 'women', sport: 'lifestyle', price: 105, original: null, image: 'https://images.pexels.com/photos/2529148/pexels-photo-2529148.jpeg?auto=compress&cs=tinysrgb&w=500', category: 'Women\'s Lifestyle' },
+      { id: 'airmax97-w', name: 'Nike Air Max 97', gender: 'women', sport: 'lifestyle', price: 175, original: null, image: 'https://images.pexels.com/photos/11631805/pexels-photo-11631805.jpeg?auto=compress&cs=tinysrgb&w=500', category: 'Women\'s Lifestyle' },
+
+      // Kids - All sports
+      { id: 'airmax-sc', name: 'Nike Air Max SC', gender: 'kids', sport: 'lifestyle', price: 70, original: 90, image: 'https://images.pexels.com/photos/1598505/pexels-photo-1598505.jpeg?auto=compress&cs=tinysrgb&w=500', category: 'Kids\' Shoes' },
+      { id: 'pegasus-kids', name: 'Pegasus 40', gender: 'kids', sport: 'running', price: 80, original: null, image: 'https://images.pexels.com/photos/1032110/pexels-photo-1032110.jpeg?auto=compress&cs=tinysrgb&w=500', category: 'Kids\' Running' },
+      { id: 'lebron-kids', name: 'LeBron 20', gender: 'kids', sport: 'basketball', price: 120, original: null, image: 'https://images.pexels.com/photos/6794804/pexels-photo-6794804.jpeg?auto=compress&cs=tinysrgb&w=500', category: 'Kids\' Basketball' },
+      { id: 'mercurial-kids', name: 'Mercurial Superfly 9', gender: 'kids', sport: 'football', price: 150, original: null, image: 'https://images.pexels.com/photos/46798/the-ball-stadion-football-the-pitch-46798.jpeg?auto=compress&cs=tinysrgb&w=500', category: 'Kids\' Football' },
+      { id: 'metcon-kids', name: 'Metcon 8', gender: 'kids', sport: 'training', price: 90, original: null, image: 'https://images.pexels.com/photos/841130/pexels-photo-841130.jpeg?auto=compress&cs=tinysrgb&w=500', category: 'Kids\' Training' },
+    ];
+
+    // --------------------------------------------------------------
+    // PAGE SWITCHING
+    // --------------------------------------------------------------
+    function switchPage(pageId) {
+      document.querySelectorAll('.page-section').forEach(el => el.classList.remove('active'));
+      const page = document.getElementById(`page-${pageId}`);
+      if (page) page.classList.add('active');
+      
+      document.querySelectorAll('.nav__link').forEach(link => link.classList.remove('nav__link--active'));
+      if (pageId === 'home') document.querySelector('.nav__link[onclick*="home"]')?.classList.add('nav__link--active');
+      if (pageId === 'men') document.querySelector('.nav__link[onclick*="men"]')?.classList.add('nav__link--active');
+      if (pageId === 'women') document.querySelector('.nav__link[onclick*="women"]')?.classList.add('nav__link--active');
+      if (pageId === 'kids') document.querySelector('.nav__link[onclick*="kids"]')?.classList.add('nav__link--active');
+      if (pageId === 'sale') document.querySelector('.nav__link[onclick*="sale"]')?.classList.add('nav__link--active');
+      if (pageId === 'snkrs') document.querySelector('.nav__link[onclick*="snkrs"]')?.classList.add('nav__link--active');
+
+      if (pageId === 'men') populateGenderPage('men');
+      if (pageId === 'women') populateGenderPage('women');
+      if (pageId === 'kids') populateGenderPage('kids');
+      if (pageId === 'sale') populateSalePage();
+      if (pageId === 'wishlist') renderWishlistPage();
+      if (pageId === 'cart') renderCartPage();
+    }
+
+    // --------------------------------------------------------------
+    // CART FUNCTIONS
+    // --------------------------------------------------------------
+    function addToCart(productId, productName, price, image) {
+      const existing = cart.find(item => item.id === productId);
+      if (existing) {
+        existing.quantity += 1;
+      } else {
+        cart.push({ id: productId, name: productName, price: price, image: image, quantity: 1 });
+      }
+      updateCartBadge();
+      alert(`${productName} added to bag!`);
+    }
+
+    function removeFromCart(productId) {
+      cart = cart.filter(item => item.id !== productId);
+      updateCartBadge();
+      renderCartPage();
+    }
+
+    function updateCartBadge() {
+      const count = cart.reduce((acc, item) => acc + item.quantity, 0);
+      const badge = document.getElementById('cartCountBadge');
+      if (badge) {
+        badge.textContent = count;
+        badge.style.display = count > 0 ? 'flex' : 'none';
+      }
+    }
+
+    // --------------------------------------------------------------
+    // WISHLIST FUNCTIONS
+    // --------------------------------------------------------------
+    function toggleWishlist(btn, productId, productName, price, image) {
+      const icon = btn.querySelector('i');
+      const isAdding = icon.classList.contains('fa-regular');
+      
+      if (isAdding) {
+        if (!wishlist.find(item => item.id === productId)) {
+          wishlist.push({ id: productId, name: productName, price: price, image: image });
+        }
+        icon.classList.remove('fa-regular');
+        icon.classList.add('fa-solid');
+        btn.classList.add('active');
+      } else {
+        wishlist = wishlist.filter(item => item.id !== productId);
+        icon.classList.remove('fa-solid');
+        icon.classList.add('fa-regular');
+        btn.classList.remove('active');
+      }
+      updateWishlistBadge();
+      if (document.getElementById('page-wishlist').classList.contains('active')) {
+        renderWishlistPage();
+      }
+    }
+
+    function updateWishlistBadge() {
+      const count = wishlist.length;
+      const badge = document.getElementById('wishlistCountBadge');
+      if (badge) {
+        badge.textContent = count;
+        badge.style.display = count > 0 ? 'flex' : 'none';
+      }
+      const headerIcon = document.querySelector('#wishlistHeaderBtn i');
+      if (headerIcon) {
+        if (count > 0) {
+          headerIcon.classList.remove('fa-regular');
+          headerIcon.classList.add('fa-solid');
+        } else {
+          headerIcon.classList.remove('fa-solid');
+          headerIcon.classList.add('fa-regular');
+        }
+      }
+    }
+
+    // --------------------------------------------------------------
+    // POPULATE PAGES
+    // --------------------------------------------------------------
+    function populateGenderPage(gender) {
+      const container = document.getElementById(`${gender}ProductsGrid`);
+      if (!container) return;
+      const filtered = productDB.filter(p => p.gender === gender);
+      container.innerHTML = filtered.map(p => createProductCard(p)).join('');
+      attachProductCardEvents(container);
+    }
+
+    function populateSalePage() {
+      const container = document.getElementById('saleProductsGrid');
+      if (!container) return;
+      const saleItems = productDB.filter(p => p.original !== null);
+      container.innerHTML = saleItems.map(p => createProductCard(p)).join('');
+      attachProductCardEvents(container);
+    }
+
+    function createProductCard(p) {
+      let badgeHtml = '';
+      if (p.original) badgeHtml = `<span class="product-card__badge">Sale</span>`;
+      else if (p.id.includes('new')) badgeHtml = `<span class="product-card__badge product-card__badge--new">New</span>`;
+      
+      let priceHtml = `<span class="product-card__price">$${p.price}</span>`;
+      if (p.original) {
+        priceHtml = `<span class="product-card__price product-card__price--sale">$${p.price}</span>
+                     <span class="product-card__price product-card__price--original">$${p.original}</span>`;
+      }
+
+      const inWishlist = wishlist.some(item => item.id === p.id);
+      const heartClass = inWishlist ? 'fa-solid active' : 'fa-regular';
+
+      return `
+        <article class="product-card" data-gender="${p.gender}" data-sport="${p.sport}" data-product-id="${p.id}" data-product-name="${p.name}" data-price="${p.price}" data-image="${p.image}">
+          <div class="product-card__image-wrap">
+            <img src="${p.image}" alt="${p.name}" loading="lazy" />
+            ${badgeHtml}
+            <button class="product-card__quick-add" aria-label="Quick add to bag">+ Quick Add</button>
+            <button class="product-card__wish ${inWishlist ? 'active' : ''}" aria-label="Add to wishlist"><i class="${heartClass} fa-heart"></i></button>
+          </div>
+          <div class="product-card__body">
+            <p class="product-card__category">${p.category || p.gender?.charAt(0).toUpperCase() + p.gender?.slice(1) + '\'s Shoes'}</p>
+            <h3 class="product-card__name">${p.name}</h3>
+            <div class="product-card__colors">
+              <span class="product-card__color-dot" style="background:#fff;border-color:#ddd;"></span>
+              <span class="product-card__color-dot" style="background:#111;"></span>
+              <span class="product-card__color-dot" style="background:#c0392b;"></span>
+            </div>
+            <div class="product-card__price-row">
+              ${priceHtml}
+            </div>
+          </div>
+        </article>
+      `;
+    }
+
+    function attachProductCardEvents(container) {
+      container.querySelectorAll('.product-card__quick-add').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          const card = this.closest('.product-card');
+          const id = card.dataset.productId;
+          const name = card.dataset.productName;
+          const price = parseFloat(card.dataset.price);
+          const image = card.dataset.image;
+          addToCart(id, name, price, image);
+        });
+      });
+
+      container.querySelectorAll('.product-card__wish').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          const card = this.closest('.product-card');
+          const id = card.dataset.productId;
+          const name = card.dataset.productName;
+          const price = parseFloat(card.dataset.price);
+          const image = card.dataset.image;
+          toggleWishlist(this, id, name, price, image);
+        });
+      });
+    }
+
+    // --------------------------------------------------------------
+    // WISHLIST PAGE RENDER
+    // --------------------------------------------------------------
+    function renderWishlistPage() {
+      const container = document.getElementById('wishlistContainer');
+      if (!container) return;
+      if (wishlist.length === 0) {
+        container.innerHTML = `
+          <div class="empty-state">
+            <i class="fa-regular fa-heart"></i>
+            <h3>Your favourites are empty</h3>
+            <p>Save items you love by tapping the heart.</p>
+            <a href="#" class="btn btn--dark" onclick="switchPage('home'); return false;">Start Shopping</a>
+          </div>
+        `;
+        return;
+      }
+      let html = '<div class="product-grid">';
+      wishlist.forEach(item => {
+        const p = productDB.find(p => p.id === item.id) || { gender: 'men', sport: 'lifestyle', category: 'Shoes', original: null };
+        html += createProductCard({ ...p, id: item.id, name: item.name, price: item.price, image: item.image });
+      });
+      html += '</div>';
+      container.innerHTML = html;
+      attachProductCardEvents(container);
+    }
+
+    // --------------------------------------------------------------
+    // CART PAGE RENDER
+    // --------------------------------------------------------------
+    function renderCartPage() {
+      const container = document.getElementById('cartContainer');
+      if (!container) return;
+      if (cart.length === 0) {
+        container.innerHTML = `
+          <div class="empty-state">
+            <i class="fa-solid fa-bag-shopping"></i>
+            <h3>Your bag is empty</h3>
+            <p>Add items to get started.</p>
+            <a href="#" class="btn btn--dark" onclick="switchPage('home'); return false;">Shop Now</a>
+          </div>
+        `;
+        return;
+      }
+
+      let itemsHtml = '';
+      let subtotal = 0;
+      cart.forEach(item => {
+        const total = item.price * item.quantity;
+        subtotal += total;
+        itemsHtml += `
+          <div class="cart-item">
+            <div class="cart-item__img">
+              <img src="${item.image}" alt="${item.name}">
+            </div>
+            <div class="cart-item__info">
+              <h4 class="cart-item__name">${item.name}</h4>
+              <p class="cart-item__category">Men's Shoes</p>
+              <div class="cart-item__price">$${item.price}</div>
+              <div style="display:flex; align-items:center; gap: .5rem; margin-top: .5rem;">
+                <span>Qty: ${item.quantity}</span>
+                <button class="cart-item__remove" onclick="removeFromCart('${item.id}')"><i class="fa-regular fa-trash-can"></i></button>
+              </div>
+            </div>
+          </div>
+        `;
+      });
+
+      container.innerHTML = `
+        ${itemsHtml}
+        <div class="cart-summary">
+          <div class="cart-summary__row">
+            <span>Subtotal</span>
+            <span>$${subtotal.toFixed(2)}</span>
+          </div>
+          <div class="cart-summary__row">
+            <span>Shipping</span>
+            <span>Free</span>
+          </div>
+          <div class="cart-summary__row cart-summary__total">
+            <span>Total</span>
+            <span>$${subtotal.toFixed(2)}</span>
+          </div>
+          <button class="btn btn--dark" style="width: 100%; margin-top: 1.5rem;" onclick="openPaymentModal()">Proceed to Checkout</button>
+        </div>
+      `;
+    }
+
+    // --------------------------------------------------------------
+    // SPORT FILTER
+    // --------------------------------------------------------------
+    function filterSport(sport) {
+      switchPage('home');
+      const section = document.getElementById('sportProductsSection');
+      if (section) {
+        section.scrollIntoView({ behavior: 'smooth' });
+        const titleMap = {
+          running: 'Running Shoes',
+          basketball: 'Basketball Shoes',
+          football: 'Football Shoes',
+          training: 'Training Shoes',
+          all: 'All Sports'
+        };
+        document.getElementById('sportSectionTitle').textContent = titleMap[sport] || 'Sport Shoes';
+        
+        let filtered = [];
+        if (sport === 'all') filtered = productDB.filter(p => p.sport !== 'lifestyle');
+        else filtered = productDB.filter(p => p.sport === sport);
+        
+        const grid = document.getElementById('sportProductGrid');
+        grid.innerHTML = filtered.map(p => createProductCard(p)).join('');
+        attachProductCardEvents(grid);
+      }
+    }
+
+    // --------------------------------------------------------------
+    // INITIAL HOMEPAGE POPULATION
+    // --------------------------------------------------------------
+    function initHomepage() {
+      // Trending: first 4 men's lifestyle
+      const trending = productDB.filter(p => p.gender === 'men' && p.sport === 'lifestyle').slice(0,4);
+      document.getElementById('trendingGrid').innerHTML = trending.map(p => createProductCard(p)).join('');
+      
+      // New Arrivals: first 4 women's lifestyle + kids
+      const arrivals = productDB.filter(p => p.gender === 'women' || p.gender === 'kids').slice(0,4);
+      document.getElementById('arrivalsGrid').innerHTML = arrivals.map(p => createProductCard(p)).join('');
+      
+      // Icons: first 4 icons
+      const icons = productDB.filter(p => p.sport === 'lifestyle' && p.price < 150).slice(0,4);
+      document.getElementById('iconsGrid').innerHTML = icons.map(p => {
+        return `
+          <article class="icon-card" data-gender="${p.gender}" data-product-id="${p.id}" data-product-name="${p.name}">
+            <div class="icon-card__image">
+              <img src="${p.image}" alt="${p.name}" loading="lazy" />
+            </div>
+            <p class="icon-card__year">Since 1980s</p>
+            <h3 class="icon-card__name">${p.name}</h3>
+            <p class="icon-card__price">From $${p.price}</p>
+            <a href="#" class="icon-card__shop" onclick="addToCart('${p.id}', '${p.name}', ${p.price}, '${p.image}'); return false;">Shop →</a>
+          </article>
+        `;
+      }).join('');
+      
+      attachProductCardEvents(document);
+      
+      // Sport section initial (running)
+      filterSport('running');
+    }
+
+    // --------------------------------------------------------------
+    // MODALS
+    // --------------------------------------------------------------
+    function openAuthModal() {
+      document.getElementById('authModal').classList.add('active');
+    }
+    function closeAuthModal() {
+      document.getElementById('authModal').classList.remove('active');
+    }
+    function switchAuthTab(tab) {
+      document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.auth-form').forEach(f => f.classList.remove('active'));
+      if (tab === 'login') {
+        document.querySelector('.auth-tab[onclick*="login"]').classList.add('active');
+        document.getElementById('loginForm').classList.add('active');
+      } else {
+        document.querySelector('.auth-tab[onclick*="register"]').classList.add('active');
+        document.getElementById('registerForm').classList.add('active');
+      }
+    }
+    function openPaymentModal() {
+      document.getElementById('paymentModal').classList.add('active');
+    }
+    function closePaymentModal() {
+      document.getElementById('paymentModal').classList.remove('active');
+    }
+    function selectPaymentMethod(method) {
+      document.querySelectorAll('.payment-method').forEach(m => m.classList.remove('active'));
+      document.querySelector(`.payment-method[onclick*="${method}"]`).classList.add('active');
+      if (method === 'card') {
+        document.getElementById('cardPaymentForm').style.display = 'block';
+        document.getElementById('paypalForm').style.display = 'none';
+      } else {
+        document.getElementById('cardPaymentForm').style.display = 'none';
+        document.getElementById('paypalForm').style.display = 'block';
+      }
+    }
+
+    // --------------------------------------------------------------
+    // SEARCH
+    // --------------------------------------------------------------
+    function initSearch() {
+      const searchToggle = document.getElementById('searchToggleBtn');
+      const searchBar = document.getElementById('searchBar');
+      const searchInput = document.getElementById('searchInput');
+      const searchClear = document.getElementById('searchClearBtn');
+      
+      if (searchToggle) {
+        searchToggle.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          searchBar.classList.toggle('active');
+          if (searchBar.classList.contains('active')) searchInput.focus();
+        });
+      }
+      if (searchInput) {
+        searchInput.addEventListener('input', function() {
+          const term = this.value.toLowerCase();
+          document.querySelectorAll('.product-card, .icon-card').forEach(card => {
+            const name = card.querySelector('.product-card__name, .icon-card__name')?.textContent.toLowerCase() || '';
+            card.style.display = name.includes(term) ? '' : 'none';
+          });
+        });
+      }
+      if (searchClear) {
+        searchClear.addEventListener('click', function() {
+          searchInput.value = '';
+          document.querySelectorAll('.product-card, .icon-card').forEach(card => card.style.display = '');
+          searchInput.focus();
+        });
+      }
+      document.addEventListener('click', function(e) {
+        if (searchBar && searchBar.classList.contains('active') && 
+            !e.target.closest('.nav__search-wrapper') && 
+            !e.target.closest('#searchToggleBtn')) {
+          searchBar.classList.remove('active');
+        }
+      });
+    }
+
+    // --------------------------------------------------------------
+    // BURGER MENU
+    // --------------------------------------------------------------
+    function initBurger() {
+      const burgerLabel = document.querySelector('.nav__burger-label');
+      const navEl = document.querySelector('.nav');
+      if (burgerLabel && navEl) {
+        burgerLabel.addEventListener('click', () => {
+          navEl.classList.toggle('nav--open');
+          burgerLabel.setAttribute('aria-expanded', navEl.classList.contains('nav--open'));
+        });
+        document.querySelectorAll('.nav__mobile-link').forEach(link => {
+          link.addEventListener('click', () => {
+            navEl.classList.remove('nav--open');
+            burgerLabel.setAttribute('aria-expanded', 'false');
+          });
+        });
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape') {
+            navEl.classList.remove('nav--open');
+            burgerLabel.setAttribute('aria-expanded', 'false');
+          }
+        });
+      }
+    }
+
+    // --------------------------------------------------------------
+    // INITIALIZATION
+    // --------------------------------------------------------------
+    document.addEventListener('DOMContentLoaded', function() {
+      initHomepage();
+      
+      updateCartBadge();
+      updateWishlistBadge();
+      
+      initSearch();
+      initBurger();
+      
+      // Gender filter on homepage
+      document.querySelectorAll('.gender-filter__btn').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+          e.preventDefault();
+          const gender = this.dataset.gender;
+          document.querySelectorAll('.gender-filter__btn').forEach(b => b.classList.remove('active'));
+          this.classList.add('active');
+          document.querySelectorAll('.product-card').forEach(card => {
+            if (gender === 'all') card.style.display = '';
+            else card.style.display = card.dataset.gender === gender ? '' : 'none';
+          });
+        });
+      });
+      
+      window.addEventListener('click', function(e) {
+        if (e.target.classList.contains('modal')) {
+          e.target.classList.remove('active');
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
